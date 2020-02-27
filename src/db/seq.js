@@ -9,8 +9,8 @@ const { isPrd, isTest } = require('../utils/env')
 const { host, database, user, password } = MYSQL_CONF
 
 const conf = {
-	host: host,
-	dialect: 'mysql'
+  host: host,
+  dialect: 'mysql'
 }
 
 if (isTest) {
@@ -19,12 +19,12 @@ if (isTest) {
 } 
 
 if (isPrd) {
-	// 线上环境 - 连接池配置
-	conf.pool = {
-		max: 5, // 连接池允许最大连接数量
-		min: 0,
-		idle: 10000 // 10s 之内没有被使用则释放
-	}
+  // 线上环境 - 连接池配置
+  conf.pool = {
+    max: 5, // 连接池允许最大连接数量
+    min: 0,
+    idle: 10000 // 10s 之内没有被使用则释放
+  }
 }
 
 const seq = new Sequelize(database, user, password, conf)
