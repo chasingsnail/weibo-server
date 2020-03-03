@@ -3,7 +3,7 @@
  */
 const seq = require('./seq')
 
-// require('./model')
+require('./model')
 
 seq
   .authenticate()
