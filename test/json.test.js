@@ -11,8 +11,8 @@ test('json feedback is correct', async () => {
     title: 'koa2 json'
   })
   // post req
-  const res = await server.post('/login').send({
-    username: 'zhangsan',
-    password: '123'
-  })
+  // const res = await server.post('/login').send({
+  //   username: 'zhangsan',
+  //   password: '123'
+  // })
 })

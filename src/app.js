@@ -13,6 +13,10 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 
 // error handler
+// const onerrorConf = {
+//   redirect: '/error'
+// }
+// onerror(app, onerrorConf) // 跳转到 error 页
 onerror(app)
 
 // middlewares
