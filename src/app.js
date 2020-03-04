@@ -11,6 +11,7 @@ const { REDIS_CONF } = require('./config/db')
 
 const index = require('./routes/index')
 const userView = require('./routes/view/user')
+const userAPI = require('./routes/api/user')
 
 // error handler
 // const onerrorConf = {
@@ -63,7 +64,10 @@ app.use(
 
 // routes
 app.use(index.routes(), index.allowedMethods())
+// view
 app.use(userView.routes(), userView.allowedMethods())
+// api
+app.use(userAPI.routes(), userAPI.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
