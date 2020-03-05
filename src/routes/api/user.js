@@ -5,11 +5,13 @@
 const router = require('koa-router')()
 
 const { checkUserExist, registerUser } = require('../../controller/user')
+const genValidator = require('../../middleware/validator')
+const validateUser = require('../../validator/user')
 
 router.prefix('/api/user')
 
 // 注册
-router.post('/register', async (ctx, next) => {
+router.post('/register', genValidator(validateUser), async (ctx, next) => {
   const { username, password, gender } = ctx.request.body
   console.log('username, password, gender', username, password, gender)
   ctx.body = await registerUser({username, password, gender})
