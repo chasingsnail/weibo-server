@@ -3,6 +3,7 @@
  */
 
 const { getUserInfo, createUser } = require('../service/user')
+const { genPassword } = require('../utils/crpy')
 const { SuccessModel, ErrorModel} = require('../model/ResModel')
 
 /**
@@ -17,7 +18,7 @@ const registerUser = async ({username, password, gender}) => {
     return new ErrorModel('用户名已存在')
   }
   try {
-    await createUser({username, password, gender})
+    await createUser({username, password: genPassword(password), gender})
     return new SuccessModel('注册成功')
   } catch (error) {
     console.log(error.message, error.stack)
