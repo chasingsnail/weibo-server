@@ -38,7 +38,23 @@ const checkUserExist = async (username) => {
   return new ErrorModel('用户名未存在')
 }
 
+/**
+ * 
+ * @param {string} username 用户名
+ * @param {string} password 密码
+ */
+const login = async (username, password) => {
+  const user = await getUserInfo(username, genPassword(password))
+  console.log('user: ', user)
+  if (user) {
+    return new SuccessModel(user)
+  } else {
+    return new ErrorModel('用户名或密码错误')
+  }
+}
+
 module.exports = {
   checkUserExist,
-  registerUser
+  registerUser,
+  login
 }
