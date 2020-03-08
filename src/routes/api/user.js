@@ -21,13 +21,7 @@ router.post('/register', genValidator(validateUser), async (ctx, next) => {
 router.post('/isExist', async (ctx, next) => {
   const { userName } = ctx.request.body
   const res = await checkUserExist(userName)
-  console.log('res: ', res)
   ctx.body = res
-  // if (res.errno == -1) {
-  //   ctx.throw('用户名一存在')
-  // } else {
-  //   ctx.body = 'ok'
-  // }
 })
 
 

@@ -44,6 +44,10 @@ const SCHEMA = {
   }
 }
 
+/**
+ * 
+ * @param {Object} data 用户输入数据
+ */
 function validateUser(data = {}) {
   return validateSchema(SCHEMA, data)
 }
