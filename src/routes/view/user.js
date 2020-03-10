@@ -27,7 +27,7 @@ router.get('/login', async(ctx, next) => {
 })
 
 router.get('/register', async(ctx, next) => {
-  await ctx.render('register', checkLoginStatus(ctx))
+  await ctx.render('register', {})
 })
 
 module.exports = router
