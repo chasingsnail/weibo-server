@@ -27,7 +27,7 @@ router.post('/isExist', async (ctx, next) => {
 // 登录
 router.post('/login', async (ctx, next) => {
   const { userName, password } = ctx.request.body
-  const res = await login(userName, password)
+  const res = await login(userName, password, ctx)
   ctx.body = res
 })
 

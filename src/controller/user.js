@@ -42,12 +42,14 @@ const checkUserExist = async (username) => {
  * 
  * @param {string} username 用户名
  * @param {string} password 密码
+ * @param {Object} ctx koa2 ctx
  */
-const login = async (username, password) => {
-  const user = await getUserInfo(username, genPassword(password))
-  console.log('user: ', user)
-  if (user) {
-    return new SuccessModel(user)
+const login = async (username, password, ctx) => {
+  const userInfo = await getUserInfo(username, genPassword(password))
+  console.log('userInfo: ', userInfo)
+  if (userInfo) {
+    ctx.session.userInfo = userInfo
+    return new SuccessModel(userInfo)
   } else {
     return new ErrorModel('用户名或密码错误')
   }
