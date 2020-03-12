@@ -5,7 +5,7 @@
 const router = require('koa-router')()
 
 /**
- * 
+ * 已登录状态判断
  * @param {Object} ctx koa2 ctx
  */
 const checkLoginStatus = ctx => {
@@ -13,7 +13,7 @@ const checkLoginStatus = ctx => {
   if (userInfo) {
     return {
       isLogin: true,
-      userName: userInfo.username
+      username: userInfo.username
     }
   } else {
     return {

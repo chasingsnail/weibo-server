@@ -17,15 +17,19 @@ const getUserInfo = async (username, password) => {
   if (password) {
     whereOpt = { ...whereOpt, password }
   }
-  const result = await User.findOne({
-    attributes: ['id', 'username', 'nickname', 'picture', 'city'],
-    where: whereOpt
-  })
-  if (!result) {
-    return result
+  try {
+    const result = await User.findOne({
+      attributes: ['id', 'username', 'nickname', 'picture', 'city'],
+      where: whereOpt
+    })
+    if (!result) {
+      return result
+    }
+    const formatRes = formatUser(result.dataValues)
+    return formatRes
+  } catch (error) {
+    console.log('service error', error)
   }
-  const formatRes = formatUser(result.dataValues)
-  return formatRes
 }
 
 /**
@@ -45,7 +49,23 @@ const createUser = async ({ username, password, gender, nickname }) => {
   return result.dataValues
 }
 
+/**
+ * 删除用户
+ * @param {string} username 用户名
+ */
+const deleteUser = async username => {
+  console.log('deleteUser', username)
+  const res = await User.destroy({
+    where: {
+      username
+    }
+  })
+  console.log('deleteUser', res)
+  return res > 0
+}
+
 module.exports = {
   getUserInfo,
-  createUser
+  createUser,
+  deleteUser
 }

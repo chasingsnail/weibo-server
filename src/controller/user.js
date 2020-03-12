@@ -2,7 +2,7 @@
  * @description user controller
  */
 
-const { getUserInfo, createUser } = require('../service/user')
+const { getUserInfo, createUser, deleteUser } = require('../service/user')
 const { genPassword } = require('../utils/crpy')
 const { SuccessModel, ErrorModel} = require('../model/ResModel')
 
@@ -45,18 +45,36 @@ const checkUserExist = async (username) => {
  * @param {Object} ctx koa2 ctx
  */
 const login = async (username, password, ctx) => {
-  const userInfo = await getUserInfo(username, genPassword(password))
-  console.log('userInfo: ', userInfo)
-  if (userInfo) {
-    ctx.session.userInfo = userInfo
-    return new SuccessModel(userInfo)
-  } else {
-    return new ErrorModel('用户名或密码错误')
+  try {
+    const userInfo = await getUserInfo(username, genPassword(password))
+    if (userInfo) {
+      ctx.session.userInfo = userInfo
+      return new SuccessModel(userInfo)
+    } else {
+      return new ErrorModel('用户名或密码错误')
+    }
+  } catch (error) {
+    console.log('controller error: ', error)
   }
+  
+}
+
+/**
+ * 
+ * @param {string} username 用户名
+ */
+const deleteCurUser = async (username) => {
+  const res = await deleteUser(username)
+  console.log(deleteCurUser, res)
+  if (res) {
+    return new SuccessModel('删除成功')
+  } 
+  return new ErrorModel('删除失败')
 }
 
 module.exports = {
   checkUserExist,
   registerUser,
-  login
+  login,
+  deleteCurUser
 }
