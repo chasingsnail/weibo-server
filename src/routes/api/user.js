@@ -9,7 +9,9 @@ const {
   registerUser,
   login,
   deleteCurUser,
-  changeUserInfo
+  changeUserInfo,
+  changePasswrod,
+  logout
 } = require('../../controller/user')
 const { loginCheck } = require('../../middleware/loginCheck')
 const { isTest } = require('../../utils/env')
@@ -56,6 +58,18 @@ router.post('/delete', loginCheck, async (ctx, next) => {
 router.patch('/changeInfo', loginCheck, genValidator(validateUser), async (ctx, next) => {
   const { nickname, city, picture } = ctx.request.body
   ctx.body = await changeUserInfo(ctx, { nickname, city, picture })
+})
+
+// 修改密码
+router.patch('/changePassword', loginCheck, genValidator(validateUser), async (ctx, next) => {
+  const { password, newPassword } = ctx.request.body
+  const { username } = ctx.session.userInfo
+  ctx.body = await changePasswrod(username, password, newPassword)
+})
+
+// 退出登录
+router.post('/logout', loginCheck, async (ctx, next) => {
+  ctx.body = await logout(ctx)
 })
 
 module.exports = router

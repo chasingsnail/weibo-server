@@ -91,11 +91,36 @@ const changeUserInfo = async (ctx, { nickname, city, picture }) => {
   )
   if (res) {
     Object.assign(ctx.session.userInfo, {
-      nickname, city, picture
+      nickname,
+      city,
+      picture
     })
     return new SuccessModel('修改成功')
   }
   return new ErrorModel('修改失败')
+}
+
+/**
+ *
+ * @param {string} username 用户名
+ * @param {string} password 密码
+ * @param {string} newPassword 新密码
+ */
+const changePasswrod = async (username, password, newPassword) => {
+  const res = await updateUserInfo({ newPassword: genPassword(newPassword) }, { username, password: genPassword(password) })
+  if (res) {
+    return new SuccessModel('修改成功')
+  }
+  return new ErrorModel('修改失败')
+}
+
+/**
+ * 
+ * @param {Object} ctx ctx
+ */
+const logout = async (ctx) => {
+  delete ctx.session.userInfo
+  return new SuccessModel('退出成功')
 }
 
 module.exports = {
@@ -103,5 +128,7 @@ module.exports = {
   registerUser,
   login,
   deleteCurUser,
-  changeUserInfo
+  changeUserInfo,
+  changePasswrod,
+  logout
 }
