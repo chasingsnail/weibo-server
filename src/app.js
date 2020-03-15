@@ -1,4 +1,5 @@
 const Koa = require('koa')
+const path = require('path')
 const app = new Koa()
 const views = require('koa-views')
 const json = require('koa-json')
@@ -12,6 +13,7 @@ const { REDIS_CONF } = require('./config/db')
 const index = require('./routes/index')
 const userView = require('./routes/view/user')
 const userAPI = require('./routes/api/user')
+const utilsAPI = require('./routes/api/utils')
 
 // error handler
 // const onerrorConf = {
@@ -29,6 +31,7 @@ app.use(
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
+app.use(require('koa-static')(path.join(__dirname, '..', 'uploadFiles')))
 
 app.use(
   views(__dirname + '/views', {
@@ -68,6 +71,7 @@ app.use(index.routes(), index.allowedMethods())
 app.use(userView.routes(), userView.allowedMethods())
 // api
 app.use(userAPI.routes(), userAPI.allowedMethods())
+app.use(utilsAPI.routes(), utilsAPI.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
