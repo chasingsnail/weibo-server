@@ -3,6 +3,7 @@
  */
 
 const router = require('koa-router')()
+const { loginRedirect } = require('../../middleware/loginCheck')
 
 /**
  * 已登录状态判断
@@ -13,7 +14,7 @@ const checkLoginStatus = ctx => {
   if (userInfo) {
     return {
       isLogin: true,
-      username: userInfo.username
+      ...userInfo
     }
   } else {
     return {
@@ -28,6 +29,10 @@ router.get('/login', async(ctx, next) => {
 
 router.get('/register', async(ctx, next) => {
   await ctx.render('register', {})
+})
+
+router.get('/setting', loginRedirect, async (ctx, next) => {
+  await ctx.render('setting', checkLoginStatus(ctx))
 })
 
 module.exports = router
