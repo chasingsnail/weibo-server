@@ -108,6 +108,7 @@ const changeUserInfo = async (ctx, { nickname, city, picture }) => {
  */
 const changePasswrod = async (username, password, newPassword) => {
   const res = await updateUserInfo({ newPassword: genPassword(newPassword) }, { username, password: genPassword(password) })
+  console.log('changePasswrod', res)
   if (res) {
     return new SuccessModel('修改成功')
   }
