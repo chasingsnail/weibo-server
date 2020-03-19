@@ -12,6 +12,7 @@ const { REDIS_CONF } = require('./config/db')
 
 // const index = require('./routes/index')
 const blogView = require('./routes/view/blog')
+const blogAPI = require('./routes/api/blog')
 const userView = require('./routes/view/user')
 const userAPI = require('./routes/api/user')
 const utilsAPI = require('./routes/api/utils')
@@ -72,6 +73,7 @@ app.use(
 app.use(userView.routes(), userView.allowedMethods())
 app.use(blogView.routes(), blogView.allowedMethods())
 // api
+app.use(blogAPI.routes(), blogAPI.allowedMethods())
 app.use(userAPI.routes(), userAPI.allowedMethods())
 app.use(utilsAPI.routes(), utilsAPI.allowedMethods())
 
