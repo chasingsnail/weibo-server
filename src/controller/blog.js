@@ -2,6 +2,7 @@
  * @description blog controller
  */
 
+const xss = require('xss')
 const { createBlog } = require('../service/blog')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
 
@@ -12,7 +13,7 @@ const { SuccessModel, ErrorModel } = require('../model/ResModel')
  * @param {string} image 图片地址
  */
 const sendBlog = async (userId, content, image) => {
-  const res = await createBlog(userId, content, image)
+  const res = await createBlog(userId, xss(content), image)
   if (res) {
     return new SuccessModel('发布成功')
   }
