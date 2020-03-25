@@ -4,5 +4,5 @@
 
 module.exports = {
   DEFAULT_PICTURE: '',
-  PAGE_SIZE: 10
+  PAGE_SIZE: 5
 }

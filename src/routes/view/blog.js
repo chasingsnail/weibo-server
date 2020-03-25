@@ -21,7 +21,9 @@ router.get('/profile/:userName/', loginRedirect, async (ctx, next) => {
   const { data } = await getProfileBlogList(userName, 0)
   await ctx.render('profile', {
     blogData: data,
-    userData: {}
+    userData: {
+      userInfo: ctx.session.userInfo
+    }
   })
 })
 
