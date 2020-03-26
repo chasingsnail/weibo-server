@@ -23,7 +23,6 @@ router.prefix('/api/user')
 // 注册
 router.post('/register', genValidator(validateUser), async (ctx, next) => {
   const { username, password, gender } = ctx.request.body
-  console.log('username, password, gender', username, password, gender)
   ctx.body = await registerUser({ username, password, gender })
 })
 

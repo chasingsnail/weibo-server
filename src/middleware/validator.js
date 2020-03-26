@@ -22,7 +22,6 @@ const genValidator = fn => {
     //   }
     // 验证失败
     if (errRes) {
-      console.log('errRes: ', errRes)
       ctx.body = new ErrorModel('数据格式错误')
       return
     }
