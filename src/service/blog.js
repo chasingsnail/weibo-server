@@ -29,6 +29,7 @@ const getBlogByUser = async ({ username, pageIndex = 0, pageSize = 10 }) => {
   if (username) {
     whereOpts.username = username
   }
+  console.log('page', pageIndex, pageSize)
   const result = await Blog.findAndCountAll({
     limit: pageSize,
     offset: pageSize * pageIndex,
@@ -49,7 +50,7 @@ const getBlogByUser = async ({ username, pageIndex = 0, pageSize = 10 }) => {
     item.user = formatUser(item.user.dataValues)
     return item
   })
-  console.log('blogList', blogList)
+  // console.log('blogList', blogList)
   return {
     count: result.count,
     blogList
