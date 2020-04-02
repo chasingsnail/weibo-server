@@ -3,6 +3,6 @@
  */
 
 module.exports = {
-  COOKIE: 'weibo.sid=UKXjqR7V5LZM2y-aiXv-0LvvU-bCgN9W; weibo.sid.sig=VUraF_tftW_CdauRYCb_8c5LZsE',
+  COOKIE: 'weibo.sid=mDdq7-Xr1w3ACjqqm_JDCREnbgbvCagA; weibo.sid.sig=I_-ihchkRKeJbuO6LTLFryyn2u4',
   USERNAME: 'zhangmei'
 }
