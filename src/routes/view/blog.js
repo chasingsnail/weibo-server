@@ -4,8 +4,8 @@
 
 const router = require('koa-router')()
 const { loginRedirect } = require('../../middleware/loginCheck')
-const { getProfileBlogList } = require('../../controller/blog')
-const { isExist } = require('../../controller/user')
+const { getProfileBlogList } = require('../../controller/blog-profile')
+const { checkUserExist } = require('../../controller/user')
 const { getSquareBlogList } = require('../../controller/blog-square')
 const { getUserFollowers } = require('../../controller/user-relation')
 
@@ -29,7 +29,7 @@ router.get('/profile/:username/', loginRedirect, async (ctx, next) => {
     curUserInfo = ctx.session.userInfo
   } else {
     // 不是当前登录用户
-    const existResult = await isExist(username)
+    const existResult = await checkUserExist(username)
     if (existResult.errno !== 0) {
       // 用户名不存在
       return
@@ -39,14 +39,18 @@ router.get('/profile/:username/', loginRedirect, async (ctx, next) => {
   }
   const { data } = await getProfileBlogList(username, 0)
   // 获取粉丝数
-  const { id } = ctx.session.userInfo
   const { data: fansData } = await getUserFollowers(curUserInfo.id)
+
+  // 我是否关注了此人
+  const amIFollowed = fansData.list.some(fans => fans.username === myUserName)
+
   await ctx.render('profile', {
     blogData: data,
     userData: {
       userInfo: curUserInfo,
       fansData,
-      isMe
+      isMe,
+      amIFollowed
     }
   })
 })

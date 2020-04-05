@@ -38,7 +38,7 @@ const registerUser = async ({ username, password, gender }) => {
 const checkUserExist = async username => {
   const res = await getUserInfo(username)
   if (res) {
-    return new SuccessModel('用户名已存在')
+    return new SuccessModel(res)
   }
   return new ErrorModel('用户名未存在')
 }

@@ -1,5 +1,5 @@
 /**
- * 用户关系 controller
+ * @description 用户关系 controller
  */
 
 const { getUserByFollower } = require('../service/user-relation')
