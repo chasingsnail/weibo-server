@@ -10,12 +10,12 @@ Blog.belongsTo(User, {
   foreignKey: 'userId'
 })
 
-// 通过 followerId 查询 userId，即查询粉丝
+// 通过 userId 查询关注人
 UserRelation.belongsTo(User, {
   foreignKey: 'followerId'
 })
 
-// 按 userId 查询到 followerId，即查询关注的人
+// 按 followerId 查询粉丝用户
 User.hasMany(UserRelation, {
   foreignKey: 'userId'
 })
