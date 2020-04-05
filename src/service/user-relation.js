@@ -27,6 +27,29 @@ const getUserByFollower = async followerId => {
   }
 }
 
+const getFollwersByUser = async userId => {
+  const result = await UserRelation.findAndCountAll({
+    // attributes: ['id', 'username', 'nickname', 'picture'],
+    where: {
+      userId
+    },
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'username', 'nickname', 'picture'],
+      }
+    ]
+  })
+  const userList = result.rows.map(row => row.dataValues).map(row => {
+    row = {...row, ...row.user.dataValues}
+    return row
+  })
+  return {
+    count: result.count,
+    userList
+  }
+}
+
 /**
  * 添加关注关系
  * @param {number} userId 用户 id
@@ -57,6 +80,7 @@ const deleteFollower = async (userId, followerId) => {
 
 module.exports = {
   getUserByFollower,
+  getFollwersByUser,
   addFollower,
   deleteFollower
 }

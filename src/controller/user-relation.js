@@ -2,7 +2,7 @@
  * @description 用户关系 controller
  */
 
-const { getUserByFollower } = require('../service/user-relation')
+const { getUserByFollower, getFollwersByUser } = require('../service/user-relation')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
 
 /**
@@ -17,6 +17,19 @@ const getUserFollowers = async userId => {
   })
 }
 
+/**
+ * 查询关注人列表
+ * @param {number} userId 当前用户 id
+ */
+const getFollowerList = async userId => {
+  const { count, userList: list } = await getFollwersByUser(userId)
+  return new SuccessModel({
+    count,
+    list
+  })
+}
+
 module.exports = {
-  getUserFollowers
+  getUserFollowers,
+  getFollowerList
 }
