@@ -3,6 +3,7 @@
  */
 
 const { User } = require('../db/model/index')
+const { addFollower } = require('../service/user-relation')
 const { formatUser } = require('../service/_format')
 
 /**
@@ -45,7 +46,12 @@ const createUser = async ({ username, password, gender, nickname }) => {
     gender,
     nickname: nickname || username
   })
-  return result.dataValues
+  const data = result.dataValues
+
+  // 关注自己
+  await addFollower(data.id, data.id)
+
+  return data
 }
 
 /**

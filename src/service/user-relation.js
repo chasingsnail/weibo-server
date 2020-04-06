@@ -3,6 +3,7 @@
  */
 
 const { UserRelation, User } = require('../db/model/index')
+const Sequelize = require('sequelize')
 
 /**
  * 查询用户粉丝数
@@ -15,7 +16,10 @@ const getUserByFollower = async followerId => {
       {
         model: UserRelation,
         where: {
-          followerId
+          followerId,
+          userId: {
+            [Sequelize.Op.ne]: followerId
+          }
         }
       }
     ]
@@ -31,7 +35,10 @@ const getFollwersByUser = async userId => {
   const result = await UserRelation.findAndCountAll({
     // attributes: ['id', 'username', 'nickname', 'picture'],
     where: {
-      userId
+      userId,
+      followerId: {
+        [Sequelize.Op.ne]: userId
+      }
     },
     include: [
       {
