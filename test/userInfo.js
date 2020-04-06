@@ -6,7 +6,7 @@
  * 测试用户信息
  */
 
-const COOKIE_1 = 'weibo.sid=gxDLfrTO8UIWHB3TJtQLqP9mJNX0dvZ9; weibo.sid.sig=bi5MQvkmJ4TAJ5mpfBZlcDpsKYo'
+const COOKIE_1 = 'weibo.sid=LCSS787dHtYhLpUaKecIWNrY1bsLCRlv; weibo.sid.sig=hZkmxBV0N_BGgbomDpoN6cehp4o'
 const COOKIE_2 = 'weibo.sid=LCSS787dHtYhLpUaKecIWNrY1bsLCRlv; weibo.sid.sig=hZkmxBV0N_BGgbomDpoN6cehp4o'
 
  module.exports = {
