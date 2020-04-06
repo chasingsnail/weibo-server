@@ -2,7 +2,7 @@
  * @description blog service
  */
 
-const { Blog, User } = require('../db/model/index')
+const { Blog, User, UserRelation } = require('../db/model/index')
 const { formatUser } = require('./_format')
 
 /**
@@ -18,6 +18,43 @@ const createBlog = async (userId, content, image) => {
     image
   })
   return result.dataValues
+}
+
+/**
+ * 获取关注人微博（包含自己）
+ * @param {number} userId 当前登录用户 id
+ * @param {number} pageIndex pageIndex
+ * @param {number} pageSize pageSize
+ */
+const getBlogByFollower = async ({ userId, pageIndex, pageSize}) => {
+  const result = await Blog.findAndCountAll({
+    limit: pageSize,
+    offset: pageSize * pageIndex,
+    order: [
+      ['id', 'desc']
+    ],
+    include: [
+      {
+        model: User,
+        attributes: ['username', 'nickname', 'picture'],
+      },
+      {
+        model: UserRelation,
+        where: {
+          userId
+        }
+      }
+    ]
+  })
+  const blogList = result.rows.map(row => row.dataValues).map(item => {
+    item.user = formatUser(item.user.dataValues)
+    return item
+  })
+  console.log(blogList)
+  return {
+    count: result.count,
+    blogList
+  }
 }
 
 /**
@@ -59,5 +96,6 @@ const getBlogByUser = async ({ username, pageIndex = 0, pageSize = 10 }) => {
 
 module.exports = {
   createBlog,
-  getBlogByUser
+  getBlogByUser,
+  getBlogByFollower
 }
