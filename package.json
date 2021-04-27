@@ -36,7 +36,7 @@
     "koa-generic-session": "^2.0.4",
     "koa-redis": "^4.0.1",
     "pre-commit": "^1.2.2",
-    "redis": "^3.0.2",
+    "redis": "^3.1.1",
     "supertest": "^4.0.2"
   },
   "pre-commit": [
